@@ -21,8 +21,13 @@ CONF_SOURCE_ENTITY = "source_entity"
 CONF_X_VALUES = "x_values"
 CONF_Y_VALUES = "y_values"
 CONF_UNIT_OF_MEASUREMENT = "unit_of_measurement"
+CONF_BOUNDARY_CONDITION = "boundary_condition"
 
 DEFAULT_NAME = "Interpolation"
+DEFAULT_BOUNDARY_CONDITION = "not-a-knot"
+
+# Valid boundary condition types for cubic spline
+BOUNDARY_CONDITIONS = ["not-a-knot", "periodic", "clamped", "natural"]
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     {
@@ -32,6 +37,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
         vol.Optional(CONF_NAME, default=DEFAULT_NAME): cv.string,
         vol.Optional(CONF_UNIQUE_ID): cv.string,
         vol.Optional(CONF_UNIT_OF_MEASUREMENT): cv.string,
+        vol.Optional(CONF_BOUNDARY_CONDITION, default=DEFAULT_BOUNDARY_CONDITION): vol.In(BOUNDARY_CONDITIONS),
     }
 )
 
@@ -62,6 +68,7 @@ async def async_setup_platform(
     y_values = config[CONF_Y_VALUES]
     unique_id = config.get(CONF_UNIQUE_ID)
     unit_of_measurement = config.get(CONF_UNIT_OF_MEASUREMENT)
+    boundary_condition = config[CONF_BOUNDARY_CONDITION]
     
     # Validate data points
     try:
@@ -71,7 +78,7 @@ async def async_setup_platform(
         return
     
     async_add_entities(
-        [InterpolationSensor(name, source_entity, x_values, y_values, unique_id, unit_of_measurement)],
+        [InterpolationSensor(name, source_entity, x_values, y_values, unique_id, unit_of_measurement, boundary_condition)],
         True,
     )
 
@@ -87,6 +94,7 @@ class InterpolationSensor(SensorEntity):
         y_values: list[float],
         unique_id: str | None,
         unit_of_measurement: str | None,
+        boundary_condition: str,
     ) -> None:
         """Initialize the Interpolation sensor."""
         self._attr_name = name
@@ -97,14 +105,16 @@ class InterpolationSensor(SensorEntity):
         self._attr_native_unit_of_measurement = unit_of_measurement
         self._attr_native_value = None
         self._spline = None
+        self._boundary_condition = boundary_condition
         
         # Create the cubic spline interpolation function
         try:
-            self._spline = CubicSpline(x_values, y_values)
+            self._spline = CubicSpline(x_values, y_values, bc_type=boundary_condition)
             _LOGGER.debug(
-                "Created cubic spline interpolation for %s with %d data points",
+                "Created cubic spline interpolation for %s with %d data points and bc_type='%s'",
                 name,
                 len(x_values),
+                boundary_condition,
             )
         except Exception as err:
             _LOGGER.error("Error creating cubic spline: %s", err)
@@ -177,4 +187,5 @@ class InterpolationSensor(SensorEntity):
             "x_values": self._x_values,
             "y_values": self._y_values,
             "interpolation_method": "cubic_spline",
+            "boundary_condition": self._boundary_condition,
         }

@@ -41,6 +41,11 @@ sensor:
 - **name** (optional): Name of the sensor (default: "Interpolation")
 - **unique_id** (optional): A unique ID for the sensor
 - **unit_of_measurement** (optional): Unit of measurement for the output value
+- **boundary_condition** (optional): Boundary condition type for the cubic spline (default: "not-a-knot")
+  - `not-a-knot`: Default option, good when there is no information on boundary conditions
+  - `natural`: Second derivative at curve ends are zero
+  - `clamped`: First derivative at curve ends are zero
+  - `periodic`: Assumes the function is periodic (first and last y values must be identical)
 
 ## Example Use Cases
 
@@ -89,6 +94,32 @@ The integration uses scipy's CubicSpline interpolation, which creates a smooth c
 
 - If the input is within the range of x_values, the value is interpolated
 - If the input is outside the range, the value is extrapolated using the cubic spline
+
+### Boundary Conditions
+
+The `boundary_condition` parameter controls how the cubic spline behaves at the endpoints of your data. This is important because it affects the shape of the curve, especially for extrapolation beyond your data range.
+
+Available boundary conditions:
+
+- **not-a-knot** (default): The first and second segments at each end are the same polynomial. This is a good default when you don't have specific requirements for the endpoints. It produces natural-looking curves.
+
+- **natural**: The second derivative at both endpoints is zero. This creates a curve that "straightens out" at the ends, which is useful when you expect the function to become linear beyond your data range.
+
+- **clamped**: The first derivative at both endpoints is zero. This means the curve has zero slope at the ends, creating a "flat" approach to the endpoints. Useful when you know the rate of change should be zero at the boundaries.
+
+- **periodic**: Assumes the function is periodic with period `x[-1] - x[0]`. The first and last y values must be identical. This ensures smooth transitions when the data represents a repeating pattern (e.g., seasonal data).
+
+Example with natural boundary condition:
+```yaml
+sensor:
+  - platform: interpolation
+    name: "Temperature with Natural BC"
+    source_entity: sensor.raw_temperature
+    x_values: [0, 10, 20, 30, 40]
+    y_values: [0.5, 10.2, 20.1, 30.3, 40.5]
+    boundary_condition: natural
+    unit_of_measurement: "°C"
+```
 
 ## Comparison with Compensation Integration
 

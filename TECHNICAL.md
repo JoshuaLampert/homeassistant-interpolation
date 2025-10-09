@@ -35,6 +35,19 @@ The integration uses scipy's `CubicSpline` which:
 - Ensures continuity up to the second derivative
 - Provides smooth interpolation and extrapolation
 - Supports both interpolation (within range) and extrapolation (outside range)
+- Supports multiple boundary condition types to control endpoint behavior
+
+#### Boundary Conditions
+
+The integration supports four boundary condition types:
+
+1. **not-a-knot** (default): The first and second segments at each end use the same polynomial. This is the most general-purpose option and produces natural-looking curves without making assumptions about endpoint behavior.
+
+2. **natural**: The second derivative at both endpoints is zero. This creates a curve that "straightens out" at the ends, which is useful when you expect the function to become linear beyond your data range.
+
+3. **clamped**: The first derivative at both endpoints is zero. This means the curve has zero slope at the ends, creating a "flat" approach to the endpoints.
+
+4. **periodic**: Assumes the function is periodic with period `x[-1] - x[0]`. The first and last y values must be identical. This ensures smooth transitions when the data represents a repeating pattern.
 
 ### Configuration
 
@@ -47,6 +60,7 @@ sensor:
     source_entity: sensor.source
     x_values: [x1, x2, x3, ...]
     y_values: [y1, y2, y3, ...]
+    boundary_condition: "not-a-knot"  # optional
     unit_of_measurement: "unit"  # optional
     unique_id: "unique_id"       # optional
 ```

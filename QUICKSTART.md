@@ -172,6 +172,7 @@ sensor:
 | `name` | No | string | Sensor name (default: "Interpolation") |
 | `unique_id` | No | string | Unique identifier for the sensor |
 | `unit_of_measurement` | No | string | Unit for the output value |
+| `boundary_condition` | No | string | Boundary condition type: `not-a-knot` (default), `natural`, `clamped`, or `periodic` |
 
 ## Tips
 
@@ -180,6 +181,7 @@ sensor:
 3. **Strictly increasing**: X values must be in ascending order with no duplicates
 4. **Extrapolation**: The sensor works outside your data range, but accuracy decreases
 5. **Unique IDs**: Use unique_id for entity customization in the UI
+6. **Boundary conditions**: Use `natural` for linear extrapolation, `clamped` for flat endpoints, or `periodic` for repeating patterns
 
 ## Next Steps
 

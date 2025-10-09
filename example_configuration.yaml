@@ -20,20 +20,32 @@ sensor:
     unit_of_measurement: "%"
     unique_id: "fan_speed_curve_01"
 
-  # Example 3: Battery voltage to percentage conversion
+  # Example 3: Battery voltage to percentage conversion with natural boundary condition
   - platform: interpolation
     name: "Battery Percentage"
     source_entity: sensor.battery_voltage
     x_values: [3.0, 3.3, 3.6, 3.9, 4.2]
     y_values: [0, 25, 50, 75, 100]
+    boundary_condition: natural
     unit_of_measurement: "%"
     unique_id: "battery_percentage_01"
 
-  # Example 4: Light brightness mapping
+  # Example 4: Light brightness mapping with clamped boundary condition
   - platform: interpolation
     name: "Light Brightness Curve"
     source_entity: input_number.light_slider
     x_values: [0, 20, 40, 60, 80, 100]
     y_values: [0, 5, 15, 35, 65, 100]
+    boundary_condition: clamped
     unit_of_measurement: "%"
     unique_id: "light_brightness_curve_01"
+
+  # Example 5: Periodic data (e.g., seasonal adjustment)
+  - platform: interpolation
+    name: "Seasonal Adjustment"
+    source_entity: sensor.day_of_year
+    x_values: [0, 91, 182, 273, 365]
+    y_values: [1.0, 1.2, 1.0, 0.8, 1.0]
+    boundary_condition: periodic
+    unit_of_measurement: "factor"
+    unique_id: "seasonal_adjustment_01"
