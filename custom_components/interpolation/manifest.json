@@ -1,0 +1,10 @@
+{
+  "domain": "interpolation",
+  "name": "Interpolation",
+  "codeowners": ["@JoshuaLampert"],
+  "config_flow": false,
+  "documentation": "https://github.com/JoshuaLampert/homeassistant-interpolation",
+  "iot_class": "calculated",
+  "requirements": ["scipy>=1.7.0"],
+  "version": "1.0.0"
+}

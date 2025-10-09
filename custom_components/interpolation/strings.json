@@ -1,0 +1,18 @@
+{
+  "title": "Interpolation",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Set up Interpolation",
+        "description": "Configure the interpolation sensor",
+        "data": {
+          "name": "Name",
+          "source_entity": "Source Entity",
+          "x_values": "X Values",
+          "y_values": "Y Values",
+          "unit_of_measurement": "Unit of Measurement"
+        }
+      }
+    }
+  }
+}
