@@ -101,14 +101,16 @@ Home Assistant includes a built-in [Compensation integration](https://www.home-a
 
 **Differences:**
 - **Interpolation Method**: Compensation uses polynomial fitting, while this integration uses cubic spline interpolation
-- **Smoothness**: Cubic splines guarantee smooth first and second derivatives at data points, while polynomials may oscillate
+- **Smoothness**: Cubic splines guarantee smooth first and second derivatives at data points, while high-degree polynomials can create unwanted oscillations between data points (Runge's phenomenon)
+- **Accuracy**: Polynomial fitting in the Compensation integration can have huge errors for certain functions, especially when using many calibration points, whereas cubic splines remain stable and accurate
 - **Data Point Requirements**: Compensation requires specific polynomial degrees, while this integration works with any number of points (≥2)
 - **Extrapolation**: Cubic splines generally extrapolate more predictably than high-degree polynomials
 
 **When to use this integration:**
 - You want guaranteed smoothness between data points
-- You have many calibration points and want to avoid polynomial oscillation
+- You have many calibration points and need to avoid polynomial oscillation and large interpolation errors
 - You need precise control over the curve behavior at each data point
+- Your use case is sensitive to accuracy and stability
 
 **When to use Compensation:**
 - You prefer a built-in Home Assistant integration
