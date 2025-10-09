@@ -90,6 +90,31 @@ The integration uses scipy's CubicSpline interpolation, which creates a smooth c
 - If the input is within the range of x_values, the value is interpolated
 - If the input is outside the range, the value is extrapolated using the cubic spline
 
+## Comparison with Compensation Integration
+
+Home Assistant includes a built-in [Compensation integration](https://www.home-assistant.io/integrations/compensation/) that also transforms sensor values based on calibration data. Here's how they differ:
+
+**Similarities:**
+- Both correct/transform sensor values using data points
+- Both monitor a source entity and update automatically
+- Both support configurable units of measurement
+
+**Differences:**
+- **Interpolation Method**: Compensation uses polynomial fitting, while this integration uses cubic spline interpolation
+- **Smoothness**: Cubic splines guarantee smooth first and second derivatives at data points, while polynomials may oscillate
+- **Data Point Requirements**: Compensation requires specific polynomial degrees, while this integration works with any number of points (≥2)
+- **Extrapolation**: Cubic splines generally extrapolate more predictably than high-degree polynomials
+
+**When to use this integration:**
+- You want guaranteed smoothness between data points
+- You have many calibration points and want to avoid polynomial oscillation
+- You need precise control over the curve behavior at each data point
+
+**When to use Compensation:**
+- You prefer a built-in Home Assistant integration
+- Polynomial fitting is sufficient for your use case
+- You want simpler configuration with degree specification
+
 ## State Attributes
 
 The sensor provides the following attributes:
