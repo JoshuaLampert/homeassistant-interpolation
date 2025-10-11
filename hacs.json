@@ -1,7 +1,7 @@
 {
   "name": "Interpolation",
+  "content_in_root": false,
+  "filename": "interpolation",
   "render_readme": true,
-  "domains": ["sensor"],
-  "iot_class": "Calculated",
   "homeassistant": "2021.12.0"
 }
