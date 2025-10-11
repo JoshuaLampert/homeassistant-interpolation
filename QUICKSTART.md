@@ -12,7 +12,7 @@
 
 3. Add configuration to `configuration.yaml`
 
-4. Restart Home Assistant again or reload YAML configuration via Developer Tools → YAML → Reload "Manually configured YAML entities"
+4. Restart Home Assistant again or reload YAML configuration via Developer Tools → YAML → Reload "All YAML configuration"
 
 ## Basic Configuration
 

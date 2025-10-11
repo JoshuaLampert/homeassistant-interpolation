@@ -27,14 +27,14 @@ This custom integration provides a sensor that performs cubic spline interpolati
 5. Click "Install" on the Interpolation integration
 6. Restart Home Assistant
 7. Add the configuration to your `configuration.yaml`
-8. Restart Home Assistant again or reload YAML configuration via Developer Tools → YAML → Reload "Manually configured YAML entities"
+8. Restart Home Assistant again or reload YAML configuration via Developer Tools → YAML → Reload "All YAML configuration"
 
 ### Manual Installation
 
 1. Copy the `custom_components/interpolation` directory to your Home Assistant's `custom_components` directory
 2. Restart Home Assistant
 3. Add the configuration to your `configuration.yaml`
-4. Restart Home Assistant again or reload YAML configuration via Developer Tools → YAML → Reload "Manually configured YAML entities"
+4. Restart Home Assistant again or reload YAML configuration via Developer Tools → YAML → Reload "All YAML configuration"
 
 ## Configuration
 
