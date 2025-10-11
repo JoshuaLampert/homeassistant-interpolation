@@ -1,5 +1,6 @@
 # homeassistant-interpolation
-Home Assistant integration performing interpolation
+
+Home Assistant integration performing cubic spline interpolation.
 
 ## Overview
 
@@ -11,7 +12,6 @@ This custom integration provides a sensor that performs cubic spline interpolati
 - Supports arbitrary number of data points (minimum 2)
 - Automatically updates when the source entity changes
 - Validates input data (x values must be strictly increasing)
-- Provides detailed state attributes
 
 ## Installation
 
@@ -21,7 +21,7 @@ This custom integration provides a sensor that performs cubic spline interpolati
 
 ## Configuration
 
-Add the following to your `configuration.yaml`:
+The following provides an example configuration:
 
 ```yaml
 sensor:
@@ -49,7 +49,22 @@ sensor:
 
 ## Example Use Cases
 
+### Battery Voltage to Percentage
+
+Convert battery voltage to percentage:
+
+```yaml
+sensor:
+  - platform: interpolation
+    name: "Battery Percentage"
+    source_entity: sensor.battery_voltage
+    x_values: [3.0, 3.3, 3.6, 3.9, 4.2]
+    y_values: [0, 25, 50, 75, 100]
+    unit_of_measurement: "%"
+```
+
 ### Temperature Correction
+
 Correct temperature readings from a sensor based on calibration points:
 
 ```yaml
@@ -75,22 +90,9 @@ sensor:
     unit_of_measurement: "%"
 ```
 
-### Battery Voltage to Percentage
-Convert battery voltage to percentage:
-
-```yaml
-sensor:
-  - platform: interpolation
-    name: "Battery Percentage"
-    source_entity: sensor.battery_voltage
-    x_values: [3.0, 3.3, 3.6, 3.9, 4.2]
-    y_values: [0, 25, 50, 75, 100]
-    unit_of_measurement: "%"
-```
-
 ## How It Works
 
-The integration uses scipy's CubicSpline interpolation, which creates a smooth curve through the provided data points. For any input value (x), the sensor calculates the corresponding output value (y) along this curve.
+The integration uses scipy's `CubicSpline` interpolation, which creates a smooth curve through the provided data points. For any input value (x), the sensor calculates the corresponding output value (y) along this curve.
 
 - If the input is within the range of x_values, the value is interpolated
 - If the input is outside the range, the value is extrapolated using the cubic spline
@@ -131,7 +133,7 @@ Home Assistant includes a built-in [Compensation integration](https://www.home-a
 - Both support configurable units of measurement
 
 **Differences:**
-- **Interpolation Method**: Compensation uses polynomial fitting, while this integration uses cubic spline interpolation
+- **Interpolation Method**: Compensation uses polynomial fitting, while this integration uses cubic spline interpolation. This also means Compensation is not guaranteed to exactly match the input data, while this integration is.
 - **Smoothness**: Cubic splines guarantee smooth first and second derivatives at data points, while high-degree polynomials can create unwanted oscillations between data points (Runge's phenomenon)
 - **Accuracy**: Polynomial fitting in the Compensation integration can have huge errors for certain functions, especially when using many calibration points, whereas cubic splines remain stable and accurate
 - **Data Point Requirements**: Compensation requires specific polynomial degrees, while this integration works with any number of points (≥2)
@@ -140,7 +142,7 @@ Home Assistant includes a built-in [Compensation integration](https://www.home-a
 **When to use this integration:**
 - You want guaranteed smoothness between data points
 - You have many calibration points and need to avoid polynomial oscillation and large interpolation errors
-- You need precise control over the curve behavior at each data point
+- You want to exactly match the input data
 - Your use case is sensitive to accuracy and stability
 
 **When to use Compensation:**
@@ -157,7 +159,17 @@ The sensor provides the following attributes:
 - **y_values**: The y values used for interpolation
 - **interpolation_method**: Always "cubic_spline"
 
-## Requirements
+## Disclaimer
 
-- Home Assistant 2021.12 or later
-- scipy >= 1.7.0 (automatically installed)
+Please note that large parts of this integration are written by GitHub Copilot, see [this PR](https://github.com/JoshuaLampert/homeassistant-interpolation/pull/1).
+I have checked the implementation and tested the integration though. However, I do not extend any warranty. Use at your own risk!
+
+## License and contributing
+
+This project is under the MIT License (see [License](https://github.com/JoshuaLampert/homeassistant-interpolation/blob/main/LICENSE)).
+I am pleased to accept contributions from everyone, preferably in the form of a PR.
+
+## Support
+
+For issues, questions, or contributions, please [open an issue](https://github.com/JoshuaLampert/homeassistant-interpolation/issues)
+or [create a pull request](https://github.com/JoshuaLampert/homeassistant-interpolation/pulls).

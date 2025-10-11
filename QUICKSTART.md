@@ -30,13 +30,13 @@ sensor:
 You have a temperature sensor (`sensor.raw_temperature`) that reads inaccurately.
 You've measured the actual temperature at several points:
 
-| Raw Reading | Actual Temperature |
+| Raw Reading | Actual Temperature|
 |-------------|-------------------|
-| 0°C         | 0.5°C            |
-| 10°C        | 10.2°C           |
-| 20°C        | 20.1°C           |
-| 30°C        | 30.3°C           |
-| 40°C        | 40.5°C           |
+| 0°C         | 0.5°C             |
+| 10°C        | 10.2°C            |
+| 20°C        | 20.1°C            |
+| 30°C        | 30.3°C            |
+| 40°C        | 40.5°C            |
 
 ### Configuration
 
@@ -159,7 +159,6 @@ sensor:
 ### Integration not loading
 
 - Check Home Assistant logs for errors
-- Verify scipy is installed (it should auto-install)
 - Ensure the directory structure is correct
 
 ## Configuration Parameters
