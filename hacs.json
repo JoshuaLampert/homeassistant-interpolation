@@ -1,0 +1,7 @@
+{
+  "name": "Interpolation",
+  "content_in_root": false,
+  "filename": "interpolation",
+  "render_readme": true,
+  "homeassistant": "2021.12.0"
+}
