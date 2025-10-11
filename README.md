@@ -1,7 +1,6 @@
 # homeassistant-interpolation
 
-[![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://github.com/hacs/integration)
-[![GitHub Release](https://img.shields.io/github/release/JoshuaLampert/homeassistant-interpolation.svg)](https://github.com/JoshuaLampert/homeassistant-interpolation/releases)
+[![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/hacs/integration)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Home Assistant integration performing cubic spline interpolation.
