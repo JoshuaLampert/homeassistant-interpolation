@@ -1,5 +1,9 @@
 # homeassistant-interpolation
 
+[![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://github.com/hacs/integration)
+[![GitHub Release](https://img.shields.io/github/release/JoshuaLampert/homeassistant-interpolation.svg)](https://github.com/JoshuaLampert/homeassistant-interpolation/releases)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Home Assistant integration performing cubic spline interpolation.
 
 ## Overview
@@ -14,6 +18,18 @@ This custom integration provides a sensor that performs cubic spline interpolati
 - Validates input data (x values must be strictly increasing)
 
 ## Installation
+
+### HACS (Recommended)
+
+1. Open HACS in your Home Assistant instance
+2. Click on "Integrations"
+3. Click the three dots in the top right corner and select "Custom repositories"
+4. Add `https://github.com/JoshuaLampert/homeassistant-interpolation` as an integration
+5. Click "Install" on the Interpolation integration
+6. Restart Home Assistant
+7. Add the configuration to your `configuration.yaml`
+
+### Manual Installation
 
 1. Copy the `custom_components/interpolation` directory to your Home Assistant's `custom_components` directory
 2. Restart Home Assistant
