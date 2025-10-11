@@ -95,6 +95,7 @@ The sensor provides these attributes:
 - `x_values`: The x values used for interpolation
 - `y_values`: The y values used for interpolation
 - `interpolation_method`: Always "cubic_spline"
+- `boundary_condition`: The boundary condition type used ("not-a-knot", "natural", "clamped", or "periodic")
 
 ### Performance Considerations
 

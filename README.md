@@ -8,7 +8,7 @@ This custom integration provides a sensor that performs cubic spline interpolati
 
 ## Features
 
-- Uses scipy's CubicSpline for smooth interpolation
+- Uses [scipy's `CubicSpline`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.CubicSpline.html) for smooth interpolation
 - Supports arbitrary number of data points (minimum 2)
 - Automatically updates when the source entity changes
 - Validates input data (x values must be strictly increasing)
@@ -92,7 +92,7 @@ sensor:
 
 ## How It Works
 
-The integration uses scipy's `CubicSpline` interpolation, which creates a smooth curve through the provided data points. For any input value (x), the sensor calculates the corresponding output value (y) along this curve.
+The integration uses [scipy's `CubicSpline`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.CubicSpline.html) interpolation, which creates a smooth curve through the provided data points. For any input value (x), the sensor calculates the corresponding output value (y) along this curve.
 
 - If the input is within the range of x_values, the value is interpolated
 - If the input is outside the range, the value is extrapolated using the cubic spline
@@ -158,6 +158,7 @@ The sensor provides the following attributes:
 - **x_values**: The x values used for interpolation
 - **y_values**: The y values used for interpolation
 - **interpolation_method**: Always "cubic_spline"
+- **boundary_condition**: The boundary condition type used ("not-a-knot", "natural", "clamped", or "periodic")
 
 ## Disclaimer
 
