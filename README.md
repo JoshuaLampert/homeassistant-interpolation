@@ -150,15 +150,12 @@ Home Assistant includes a built-in [Compensation integration](https://www.home-a
 - Both support configurable units of measurement
 
 **Differences:**
-- **Interpolation Method**: Compensation uses polynomial fitting, while this integration uses cubic spline interpolation. This also means Compensation is not guaranteed to exactly match the input data, while this integration is.
-- **Smoothness**: Cubic splines guarantee smooth first and second derivatives at data points, while high-degree polynomials can create unwanted oscillations between data points (Runge's phenomenon)
-- **Accuracy**: Polynomial fitting in the Compensation integration can have huge errors for certain functions, especially when using many calibration points, whereas cubic splines remain stable and accurate
-- **Data Point Requirements**: Compensation requires specific polynomial degrees, while this integration works with any number of points (≥2)
+- **Method**: Compensation uses polynomial fitting, i.e., regression, while this integration uses cubic spline interpolation. This also means Compensation is not guaranteed to exactly match the input data, whereas this integration is.
+- **Accuracy**: Polynomial fitting in the Compensation integration can have huge errors and especially oscillations for certain functions, especially when using many calibration points, whereas cubic splines remain stable and accurate
 - **Extrapolation**: Cubic splines generally extrapolate more predictably than high-degree polynomials
 
 **When to use this integration:**
-- You want guaranteed smoothness between data points
-- You have many calibration points and need to avoid polynomial oscillation and large interpolation errors
+- You have many calibration points and need to avoid polynomial oscillation and large errors, e.g., due to under- and overshoots
 - You want to exactly match the input data
 - Your use case is sensitive to accuracy and stability
 
@@ -186,6 +183,7 @@ I have checked the implementation and tested the integration though. However, I 
 
 This project is under the MIT License (see [License](https://github.com/JoshuaLampert/homeassistant-interpolation/blob/main/LICENSE)).
 I am pleased to accept contributions from everyone, preferably in the form of a PR.
+See also [the contribution guide](https://github.com/JoshuaLampert/homeassistant-interpolation/blob/main/CONTRIBUTING.md).
 
 ## Support
 
